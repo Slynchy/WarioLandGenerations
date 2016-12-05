@@ -19,7 +19,7 @@ public class FadeToWhiteAndBack : MonoBehaviour {
 			img.color = new Color (255, 255, 255, img.color.a + (5 * Time.deltaTime));
 		} else if (fadingOut == false) {
 			fadingOut = true;
-			GameObject.Find ("Environment").GetComponent<World> ().ChangeEra (GameObject.Find ("Environment").GetComponent<World> ().CurrentEra()+1);
+			GameObject.Find ("Environment").GetComponent<World> ().IncEra ();
 		} else {
 			img.color = new Color (255, 255, 255, img.color.a - (5 * Time.deltaTime));
 			if (img.color.a <= 0) {

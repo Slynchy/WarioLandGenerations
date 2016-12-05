@@ -20,6 +20,7 @@ public class TimeTraveler : MonoBehaviour {
 		if (coll.tag == "Player") {
 			GameObject temp = (GameObject)GameObject.Instantiate (FadeToWhite_Prefab);
 			temp.GetComponent<RectTransform> ().SetParent (GameObject.Find ("Canvas").transform);
+			this.gameObject.GetComponent<AudioSource> ().Play ();
 		}
 	}
 }

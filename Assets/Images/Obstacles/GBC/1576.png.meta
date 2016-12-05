@@ -1,15 +1,13 @@
 fileFormatVersion: 2
-guid: 99c57af408d34c64990dfaaf189a37da
-timeCreated: 1480869560
-licenseType: Free
+guid: d487c9db453823d4490273670dd6c3d7
+timeCreated: 1480936356
+licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: 1576_0
-    21300002: 1576_1
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -31,8 +29,8 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
-    aniso: 16
+    filterMode: -1
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -40,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,37 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: 1576_0
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 0
-        width: 48
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -24, y: 80}
-        - {x: -24, y: -80}
-        - {x: 24, y: -80}
-        - {x: 24, y: 80}
-    - name: 1576_1
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 0
-        width: 48
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -24, y: 80}
-        - {x: -24, y: -80}
-        - {x: 24, y: -80}
-        - {x: 24, y: 80}
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
