@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -44,13 +45,36 @@ public class Player : MonoBehaviour {
 		UpdateScoreDisplay ();
 	}
 
-	public void UpdateScoreDisplay(){
-        // 009
-        // 010
-		ScoreDigits [0].GetComponent<Image> ().sprite = ScoreSprites [score];
-        ScoreDigits [0].GetComponent<Image>().sprite = ScoreSprites[(int)Mathf.Floor(score * 0.1f)];
-        ScoreDigits [2].GetComponent<Image>().sprite = ScoreSprites[(int)Mathf.Floor(score * 0.01f)];
+    //adapted from http://stackoverflow.com/questions/4808612/how-to-split-a-number-into-individual-digits-in-c 
+    int[] GetIntArray(int num)
+    {
+        List<int> listOfInts = new List<int>();
+        while (num > 0)
+        {
+            listOfInts.Add(num % 10);
+            num = num / 10;
+        }
+        //listOfInts.Reverse();
+        return listOfInts.ToArray();
+    }
 
+    public void UpdateScoreDisplay(){
+        int[] digits = GetIntArray((int)score);
+
+        ScoreDigits [0].GetComponent<Image> ().sprite = ScoreSprites [digits[0]];
+
+        if(digits.Length > 1)
+            ScoreDigits [1].GetComponent<Image>().sprite = ScoreSprites[digits[1]];
+        if (digits.Length > 2)
+            ScoreDigits [2].GetComponent<Image>().sprite = ScoreSprites[digits[2]];
+
+    }
+
+    public void IncreaseHealth()
+    {
+        if (health < 6)
+            health++;
+        UpdateHeartSprites(GameObject.Find("Environment").GetComponent<World>().CurrentEra());
     }
 	
 	// Update is called once per frame
@@ -59,6 +83,11 @@ public class Player : MonoBehaviour {
 			RB.AddForce (new Vector2(0,JumpPower));
 			isGrounded = false;
 		}
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            GameObject.FindGameObjectWithTag("TimeTravel").GetComponent<TimeTraveler>().ChangeEra();
+        }
 	}
 
 	void OnTriggerExit2D(Collider2D coll){

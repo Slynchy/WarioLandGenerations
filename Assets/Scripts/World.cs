@@ -47,11 +47,13 @@ public class World : MonoBehaviour {
 	}
 
 	public void IncEra(){
-		if (current_era + 1 != Era.NUM_OF_ERAS) {
-			ChangeEra (current_era+1);
+		if (++current_era != Era.NUM_OF_ERAS) {
+			ChangeEra (current_era);
 		} else {
 			ChangeEra (Era.GameBoyAdv);
-		}
+            current_era = Era.GameBoyAdv;
+
+        }
 	}
 
 	public void ChangeEra(Era _era){

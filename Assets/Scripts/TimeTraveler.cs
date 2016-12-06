@@ -16,11 +16,18 @@ public class TimeTraveler : MonoBehaviour {
 		
 	}
 
+    public void ChangeEra()
+    {
+        GameObject temp = (GameObject)GameObject.Instantiate(FadeToWhite_Prefab);
+        temp.GetComponent<FadeToWhiteAndBack>().CallbackFunc = GameObject.Find("Environment").GetComponent<World>().IncEra;
+        temp.GetComponent<RectTransform>().SetParent(GameObject.Find("Canvas").transform);
+        this.gameObject.GetComponent<AudioSource>().Play();
+    }
+
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.tag == "Player") {
-			GameObject temp = (GameObject)GameObject.Instantiate (FadeToWhite_Prefab);
-			temp.GetComponent<RectTransform> ().SetParent (GameObject.Find ("Canvas").transform);
-			this.gameObject.GetComponent<AudioSource> ().Play ();
+            coll.GetComponent<Player>().IncreaseHealth();
+            ChangeEra();
 		}
 	}
 }

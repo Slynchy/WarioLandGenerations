@@ -44,7 +44,9 @@ public class ChangeEra_Object : MonoBehaviour {
 			//	this.GetComponent<SpriteRenderer> ().sprite = wiiSprite;
 			//	break;
 			case World.Era.Atari:
-				break;
+                this.GetComponent<Animator>().runtimeAnimatorController = atariAnim;
+                this.GetComponent<SpriteRenderer>().sprite = atariSprite;
+                break;
 			default:
 				break;
 		}
