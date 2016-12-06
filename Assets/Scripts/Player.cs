@@ -34,8 +34,10 @@ public class Player : MonoBehaviour {
 		health = StartingHealth;
 		score = StartingScore;
 		ScoreDigits = new GameObject[3];
-		ScoreDigits [0] = GameObject.Find ("Score_3");
-	}
+        ScoreDigits[0] = GameObject.Find("Score_3");
+        ScoreDigits[1] = GameObject.Find("Score_2");
+        ScoreDigits[2] = GameObject.Find("Score_1");
+    }
 
 	public void IncreaseScore(){
 		score++;
@@ -43,8 +45,13 @@ public class Player : MonoBehaviour {
 	}
 
 	public void UpdateScoreDisplay(){
+        // 009
+        // 010
 		ScoreDigits [0].GetComponent<Image> ().sprite = ScoreSprites [score];
-	}
+        ScoreDigits [0].GetComponent<Image>().sprite = ScoreSprites[(int)Mathf.Floor(score * 0.1f)];
+        ScoreDigits [2].GetComponent<Image>().sprite = ScoreSprites[(int)Mathf.Floor(score * 0.01f)];
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
