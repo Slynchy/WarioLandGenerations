@@ -84,12 +84,16 @@ public class World : MonoBehaviour {
 		}
 		Player.GetComponent<ChangeEra_Object> ().ChangeEra (_era);
 
-		Player.GetComponent<Player> ().UpdateHeartSprites (_era);
+        if(Player.GetComponent<Player>() != null)
+		    Player.GetComponent<Player> ().UpdateHeartSprites (_era);
 
-		var time = Camera.main.GetComponent<AudioSource> ().time;
-		Camera.main.GetComponent<AudioSource> ().clip = Music [(int)_era];
-		Camera.main.GetComponent<AudioSource> ().time = time;
-		Camera.main.GetComponent<AudioSource> ().Play ();
+        if (Camera.main.GetComponent<AudioSource>() != null)
+        {
+            var time = Camera.main.GetComponent<AudioSource>().time;
+            Camera.main.GetComponent<AudioSource>().clip = Music[(int)_era];
+            Camera.main.GetComponent<AudioSource>().time = time;
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
 	}
 
 	private void SwitchToGB(){
