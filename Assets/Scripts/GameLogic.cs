@@ -10,6 +10,8 @@ public class GameLogic : MonoBehaviour {
     static private GameObject[] HighScoreDigits;
     static private GameObject[] ScoreDigits;
 
+    const string SaveDataName = "High Score";
+
     //adapted from http://stackoverflow.com/questions/4808612/how-to-split-a-number-into-individual-digits-in-c 
     public static int[] GetIntArray(int num)
     {
@@ -29,14 +31,14 @@ public class GameLogic : MonoBehaviour {
 
    static public void Init()
     {
-        if (!PlayerPrefs.HasKey("High Score"))
+        if (PlayerPrefs.HasKey(SaveDataName) == false)
         {
-            PlayerPrefs.SetInt("High Score", 50);
+            PlayerPrefs.SetInt(SaveDataName, 50);
             highScore = 50;
         }
         else
         { 
-            highScore = PlayerPrefs.GetInt("High Scores");
+            highScore = PlayerPrefs.GetInt(SaveDataName);
         }
 
         HighScoreDigits = new GameObject[3];
@@ -51,12 +53,32 @@ public class GameLogic : MonoBehaviour {
         ScoreSprites = Resources.LoadAll<Sprite>("numbers");
     }
 
+    static public void IncDifficulty()
+    {
+        GameObject[] backgrounds = GameObject.FindGameObjectsWithTag("Background");
+        GameObject[] foregrounds = GameObject.FindGameObjectsWithTag("Foreground");
+        GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
+
+        foreach(GameObject bg in backgrounds)
+        {
+            bg.GetComponent<Translate>().m_speed_x *= 1.1f;
+        }
+        foreach (GameObject fg in foregrounds)
+        {
+            fg.GetComponent<Translate>().m_speed_x *= 1.1f;
+        }
+        foreach (GameObject g in grounds)
+        {
+            g.GetComponent<Translate>().m_speed_x *= 1.1f;
+        }
+    }
+
     public static void UpdateHighScore(int _score)
     {
         if (highScore < _score)
         {
             highScore = _score;
-            PlayerPrefs.SetInt("High Score", _score);
+            PlayerPrefs.SetInt(SaveDataName, _score);
         }
 
         int[] digits = GameLogic.GetIntArray((int)_score);

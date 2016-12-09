@@ -46,13 +46,32 @@ public class World : MonoBehaviour {
 		return current_era;
 	}
 
+    public void StopMoving()
+    {
+        foreach (GameObject obj in Background_objects)
+        {
+            obj.GetComponent<Translate>().m_speed_x = 0;
+            obj.GetComponent<Translate>().m_speed_y = 0;
+        }
+        foreach (GameObject obj in Foreground_objects)
+        {
+            obj.GetComponent<Translate>().m_speed_x = 0;
+            obj.GetComponent<Translate>().m_speed_y = 0;
+        }
+        foreach (GameObject obj in Ground_objects)
+        {
+            obj.GetComponent<Translate>().m_speed_x = 0;
+            obj.GetComponent<Translate>().m_speed_y = 0;
+        }
+    }
+
 	public void IncEra(){
 		if (++current_era != Era.NUM_OF_ERAS) {
 			ChangeEra (current_era);
 		} else {
 			ChangeEra (Era.GameBoyAdv);
             current_era = Era.GameBoyAdv;
-
+            GameLogic.IncDifficulty();
         }
 	}
 

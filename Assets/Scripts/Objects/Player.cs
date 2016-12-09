@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
 	private uint score;
 	public Sprite[] ScoreSprites;
 
-    private bool updatedScore;
+    private GameObject SmokeTrail;
 
 	// Use this for initialization
 	void Start () {
@@ -35,12 +35,15 @@ public class Player : MonoBehaviour {
 		Hearts [5] = GameObject.Find ("Heart6");
 		health = StartingHealth;
 		score = StartingScore;
-        updatedScore = false;
+        SmokeTrail = GameObject.Find("SmokeTrail");
+        GameLogic.Init();
+        GameLogic.UpdateHighScore((int)score);
     }
 
 	public void IncreaseScore(){
 		score++;
 		UpdateScoreDisplay ();
+        this.GetComponent<AudioSource>().Play();
 	}
 
     public void UpdateScoreDisplay(){
@@ -59,22 +62,22 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space) && isGrounded == true) {
 			RB.AddForce (new Vector2(0,JumpPower));
 			isGrounded = false;
-		}
+            SmokeTrail.SetActive(false);
+        }
 
         if(Input.GetKeyDown(KeyCode.K))
         {
             GameObject.FindGameObjectWithTag("TimeTravel").GetComponent<TimeTraveler>().ChangeEra();
         }
-	}
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameLogic.IncDifficulty();
+        }
+    }
 
     void LateUpdate()
     {
-        if(updatedScore == false)
-        {
-            updatedScore = true;
-            GameLogic.Init();
-            GameLogic.UpdateHighScore((int)score);
-        }
+
     }
 
 	void OnTriggerExit2D(Collider2D coll){
@@ -88,6 +91,13 @@ public class Player : MonoBehaviour {
 			health--;
 			Hearts [health].GetComponent<Image> ().sprite = NoHeart[(int)GameObject.Find("Environment").GetComponent<World>().CurrentEra()];
 		}
+        
+        if(health <= 0)
+        {
+            RB.AddForce(new Vector2(0, 650));
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            GameObject.Find("Environment").GetComponent<World>().StopMoving();
+        }
 	}
 
 	public void UpdateHeartSprites(World.Era _era){
@@ -107,6 +117,7 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll){
 		if (coll.gameObject.CompareTag ("Ground")) {
 			isGrounded = true;
+            SmokeTrail.SetActive(true);
 		} else if (coll.gameObject.CompareTag ("Obstacle")) {
 			TakeDamage ();
 		}

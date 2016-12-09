@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
@@ -18,6 +19,10 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(1);
+        }
         timer += Time.deltaTime;
         if ( timer >= 5.0f )
         {

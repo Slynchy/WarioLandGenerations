@@ -28,24 +28,32 @@ public class ChangeEra_Object : MonoBehaviour {
 	public void ChangeEra(World.Era _era){
 		switch (_era) {
 			case World.Era.GameBoy:
-				this.GetComponent<Animator> ().runtimeAnimatorController = gbAnim;
-				this.GetComponent<SpriteRenderer> ().sprite = gbSprite;
+                if(gbAnim != null)
+				    this.GetComponent<Animator> ().runtimeAnimatorController = gbAnim;
+                if (gbSprite != null)
+                    this.GetComponent<SpriteRenderer> ().sprite = gbSprite;
 				break;
 			case World.Era.GameBoyCol:
-				this.GetComponent<Animator> ().runtimeAnimatorController = gbcAnim;
-				this.GetComponent<SpriteRenderer> ().sprite = gbcSprite;
+                if (gbcAnim != null)
+                    this.GetComponent<Animator> ().runtimeAnimatorController = gbcAnim;
+                if (gbcSprite != null)
+                    this.GetComponent<SpriteRenderer> ().sprite = gbcSprite;
 				break;
 			case World.Era.GameBoyAdv:
-				this.GetComponent<Animator> ().runtimeAnimatorController = gbaAnim;
-				this.GetComponent<SpriteRenderer> ().sprite = gbaSprite;
+                if (gbaAnim != null)
+                    this.GetComponent<Animator> ().runtimeAnimatorController = gbaAnim;
+                if (gbaSprite != null)
+                    this.GetComponent<SpriteRenderer> ().sprite = gbaSprite;
 				break;
 			//case World.Era.Wii:
 			//	this.GetComponent<Animator> ().runtimeAnimatorController = wiiAnim;
 			//	this.GetComponent<SpriteRenderer> ().sprite = wiiSprite;
 			//	break;
 			case World.Era.Atari:
-                this.GetComponent<Animator>().runtimeAnimatorController = atariAnim;
-                this.GetComponent<SpriteRenderer>().sprite = atariSprite;
+                if (atariAnim != null)
+                    this.GetComponent<Animator>().runtimeAnimatorController = atariAnim;
+                if (atariSprite != null)
+                    this.GetComponent<SpriteRenderer>().sprite = atariSprite;
                 break;
 			default:
 				break;
