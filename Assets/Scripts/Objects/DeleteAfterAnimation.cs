@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Boilerplate class to delete parent object after animation
+/// </summary>
 public class DeleteAfterAnimation : MonoBehaviour {
 
 	// Use this for initialization

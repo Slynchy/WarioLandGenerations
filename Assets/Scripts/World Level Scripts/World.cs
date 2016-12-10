@@ -3,21 +3,41 @@ using System.Collections;
 
 public class World : MonoBehaviour {
 
+    /// <summary>
+    ///  References to scene objects
+    /// </summary>
 	private GameObject[] Background_objects;
 	private GameObject[] Foreground_objects;
 	private GameObject[] Ground_objects;
 	private GameObject[] Obstacles;
 
+    /// <summary>
+    ///  Reference to player object (unique)
+    /// </summary>
 	private GameObject Player;
 
-	public Sprite[] GB_Sprites;
-	public Sprite[] GBC_Sprites;
-	public Sprite[] GBA_Sprites;
-	public Sprite[] Wii_Sprites;
-	public Sprite[] Atari_Sprites;
 
-	public AudioClip[] Music;
+    [Tooltip("GB sprites for background, foreground and ground (respectively)")]
+    public Sprite[] GB_Sprites;
 
+    [Tooltip("GBC sprites for background, foreground and ground (respectively)")]
+    public Sprite[] GBC_Sprites;
+
+    [Tooltip("GBA sprites for background, foreground and ground (respectively)")]
+    public Sprite[] GBA_Sprites;
+
+    [Tooltip("Wii sprites for background, foreground and ground (respectively)")]
+    public Sprite[] Wii_Sprites;
+
+    [Tooltip("Atari sprites for background, foreground and ground (respectively)")]
+    public Sprite[] Atari_Sprites;
+
+    [Tooltip("Music for each era (GBA, GB, GBC, Atari; in that order)")]
+    public AudioClip[] Music;
+
+    /// <summary>
+    ///  Enumerators for the eras
+    /// </summary>
 	public enum Era {
 		GameBoyAdv,
 		GameBoy,
@@ -27,25 +47,29 @@ public class World : MonoBehaviour {
 		NUM_OF_ERAS
 	}
 
+    /// <summary>
+    ///  What is the current era?
+    /// </summary>
 	private Era current_era = Era.GameBoyAdv;
-
-	// Use this for initialization
+    
 	void Start () {
 		Background_objects = GameObject.FindGameObjectsWithTag ("Background");
 		Foreground_objects = GameObject.FindGameObjectsWithTag ("Foreground");
 		Ground_objects = GameObject.FindGameObjectsWithTag ("Ground");
 		Player = GameObject.FindGameObjectWithTag ("Player");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
+    /// <summary>
+    ///  Gets the current era
+    /// </summary>
+    /// <returns> The current era </returns>
 	public Era CurrentEra() {
 		return current_era;
 	}
 
+    /// <summary>
+    ///  Stops moving all objects in scene (for game over)
+    /// </summary>
     public void StopMoving()
     {
         foreach (GameObject obj in Background_objects)
@@ -65,6 +89,9 @@ public class World : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    ///  Increases the current era by 1
+    /// </summary>
 	public void IncEra(){
 		if (++current_era != Era.NUM_OF_ERAS) {
 			ChangeEra (current_era);
@@ -76,6 +103,10 @@ public class World : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    ///  Changes the era to the specified era
+    /// </summary>
+    /// <param name="_era">Era enumerator to change to</param>
 	public void ChangeEra(Era _era){
 		Obstacles = GameObject.FindGameObjectsWithTag ("Obstacle");
 

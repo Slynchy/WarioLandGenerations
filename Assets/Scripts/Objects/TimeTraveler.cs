@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Class for the era-changer object
+/// </summary>
 public class TimeTraveler : MonoBehaviour {
 
-	public GameObject FadeToWhite_Prefab;
+    [Tooltip("FadeToWhite object prefab")]
+    public GameObject FadeToWhite_Prefab;
 
 	// Use this for initialization
 	void Start () {

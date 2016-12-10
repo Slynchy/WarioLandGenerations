@@ -6,27 +6,59 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
-	public float JumpPower;
+    [Tooltip("How high can the player jump? (800 is a good default value)")]
+    public float JumpPower;
 
+    /// <summary>
+    ///  Is the player grounded?
+    /// </summary>
 	private bool isGrounded = false;
 
+    /// <summary>
+    ///  Rigidbody reference
+    /// </summary>
 	private Rigidbody2D RB;
-	private GameObject[] Hearts;
-	public Sprite[] Heart;
-	public Sprite[] NoHeart;
 
-	public uint StartingHealth = 3;
+    /// <summary>
+    ///  References to heart display on HUD
+    /// </summary>
+	private GameObject[] Hearts;
+
+    [Tooltip("Heart sprites for the eras (GBA, GB, GBC, Atari)")]
+    public Sprite[] Heart;
+    [Tooltip("No-heart sprites for the eras (GBA, GB, GBC, Atari)")]
+    public Sprite[] NoHeart;
+
+    [Tooltip("Starting health for the player?")]
+    public uint StartingHealth = 3;
+    /// <summary>
+    /// Current health of the player
+    /// </summary>
 	private uint health;
 
-	public uint StartingScore = 0;
+    [Tooltip("Starting score of the player")]
+    public uint StartingScore = 0;
+    /// <summary>
+    ///  Current score of the player
+    /// </summary>
 	private uint score;
-	public Sprite[] ScoreSprites;
 
+    [Tooltip("Number sprites of the score (0 to 9) *DEPRECATED*")]
+    // DEPRECATED
+    public Sprite[] ScoreSprites;
+
+    /// <summary>
+    /// Reference to smoke trail
+    /// </summary>
     private GameObject SmokeTrail;
 
+    /// <summary>
+    ///  Sound to play when scoring
+    /// </summary>
 	private AudioClip ScoreUpSound;
 
-	public GameObject ScoreUpPrefab;
+    [Tooltip("Prefab of plus-one popup")]
+    public GameObject ScoreUpPrefab;
 
 	IEnumerator LoadGameOver(float time){
 		yield return new WaitForSeconds (time);

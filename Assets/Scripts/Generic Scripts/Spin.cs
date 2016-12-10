@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Rotates the object by N speed every frame
+/// </summary>
 public class Spin : MonoBehaviour {
 
-	public float m_speed;
+    [Tooltip("Speed with which to spin")]
+    public float m_speed;
 
 	// Use this for initialization
 	void Start () {

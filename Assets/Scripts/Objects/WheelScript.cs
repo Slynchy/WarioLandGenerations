@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Script that handles soft-parenting the wheel to the player
+/// </summary>
 public class WheelScript : MonoBehaviour {
 
 	private Vector3 OrigOffset;

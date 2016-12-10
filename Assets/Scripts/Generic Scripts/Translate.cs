@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Translates the object by N speed every frame
+/// </summary>
 public class Translate : MonoBehaviour {
 
-	public float m_speed_x;
-	public float m_speed_y;
+    [Tooltip("Amount to translate by on X axis")]
+    public float m_speed_x;
+    [Tooltip("Amount to translate by on Y axis")]
+    public float m_speed_y;
 
 	// Use this for initialization
 	void Start () {

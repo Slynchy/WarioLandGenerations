@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Is called VoiceScript, but actually just a script to handle playback of SFX/voice from the player
+/// </summary>
 public class WarioVoiceScript : MonoBehaviour {
 
 	private string[] SOUNDS;

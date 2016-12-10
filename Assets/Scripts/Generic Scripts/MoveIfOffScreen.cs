@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Moves the object by XY if no longer drawn
+/// </summary>
 public class MoveIfOffScreen : MonoBehaviour {
 
-	public Vector2 m_movement;
+    [Tooltip("Amount to translate by when offscreen")]
+    public Vector2 m_movement;
 
 	// Use this for initialization
 	void Start () {

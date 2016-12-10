@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Class for obstacles, and updating their position after going off screen
+/// </summary>
 public class Obstacle : MonoBehaviour {
 
+    [Tooltip("How far is this obstacle allowed to move from the origin?")]
     public float width_threshold;
 
     // We want a slight delay so that they don't warp back into view when they've only just left it

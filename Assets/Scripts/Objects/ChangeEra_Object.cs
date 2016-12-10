@@ -1,30 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Class to attach to objects that change sprite with the era
+/// </summary>
 public class ChangeEra_Object : MonoBehaviour {
 
-	public Sprite gbSprite;
-	public RuntimeAnimatorController gbAnim;
-	public Sprite gbcSprite;
-	public RuntimeAnimatorController gbcAnim;
-	public Sprite gbaSprite;
-	public RuntimeAnimatorController gbaAnim;
-	public Sprite wiiSprite;
-	public RuntimeAnimatorController wiiAnim;
-	public Sprite atariSprite;
-	public RuntimeAnimatorController atariAnim;
+    [Tooltip("Sprite to have in Gameboy era")]
+    public Sprite gbSprite;
+    [Tooltip("Animator to have in Gameboy era")]
+    public RuntimeAnimatorController gbAnim;
 
-	// Use this for initialization
+    [Tooltip("Sprite to have in Gameboy Colour era")]
+    public Sprite gbcSprite;
+    [Tooltip("Sprite to have in Gameboy Colour era")]
+    public RuntimeAnimatorController gbcAnim;
+
+    [Tooltip("Sprite to have in Gameboy Advance era")]
+    public Sprite gbaSprite;
+    [Tooltip("Sprite to have in Gameboy Advance era")]
+    public RuntimeAnimatorController gbaAnim;
+
+    [Tooltip("Sprite to have in Wii era")]
+    public Sprite wiiSprite;
+    [Tooltip("Sprite to have in Wii era")]
+    public RuntimeAnimatorController wiiAnim;
+
+    [Tooltip("Sprite to have in Atari era")]
+    public Sprite atariSprite;
+    [Tooltip("Sprite to have in Atari era")]
+    public RuntimeAnimatorController atariAnim;
+    
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
 
-
+    /// <summary>
+    ///  Changes era of this object
+    /// </summary>
+    /// <param name="_era">Era enumerator to change to</param>
 	public void ChangeEra(World.Era _era){
 		switch (_era) {
 			case World.Era.GameBoy:

@@ -5,13 +5,30 @@ using System.Collections.Generic;
 
 public class GameLogic : MonoBehaviour {
 
+    /// <summary>
+    ///  Current high score, statically accessible
+    /// </summary>
     public static int highScore;
+
+    /// <summary>
+    ///  Sprites of number digits from 0 to 9
+    /// </summary>
     private static Sprite[] ScoreSprites;
+
+    /// <summary>
+    ///  References to the score display digits in the scene
+    /// </summary>
     static private GameObject[] HighScoreDigits;
     static private GameObject[] ScoreDigits;
 
+    /// <summary>
+    ///  Name of save data key as a constant
+    /// </summary>
     const string SaveDataName = "High Score";
 
+    /// <summary>
+    ///  Initial starting difficulty
+    /// </summary>
 	private const float BaseDifficulty = 2.5f;
 
     //adapted from http://stackoverflow.com/questions/4808612/how-to-split-a-number-into-individual-digits-in-c 
@@ -23,7 +40,6 @@ public class GameLogic : MonoBehaviour {
             listOfInts.Add(num % 10);
             num = num / 10;
         }
-        //listOfInts.Reverse();
         return listOfInts.ToArray();
     }
 
@@ -31,8 +47,14 @@ public class GameLogic : MonoBehaviour {
     void Start () {
     }
 
+    /// <summary>
+    ///  Initializes all the static variables/references
+    /// </summary>
    static public void Init()
     {
+        // Check if savedata exists
+        //  Initialize if not
+        //  Load if it does
         if (PlayerPrefs.HasKey(SaveDataName) == false)
         {
             PlayerPrefs.SetInt(SaveDataName, 50);
@@ -43,6 +65,7 @@ public class GameLogic : MonoBehaviour {
             highScore = PlayerPrefs.GetInt(SaveDataName);
         }
 
+        // Cache the score objects in scene
         HighScoreDigits = new GameObject[3];
         HighScoreDigits[0] = GameObject.Find("HighScore_3");
         HighScoreDigits[1] = GameObject.Find("HighScore_2");
@@ -52,11 +75,17 @@ public class GameLogic : MonoBehaviour {
         ScoreDigits[1] = GameObject.Find("Score_2");
         ScoreDigits[2] = GameObject.Find("Score_1");
 
+        // Load score sprites from Resources folder
         ScoreSprites = Resources.LoadAll<Sprite>("numbers");
 
+        // Increase the difficulty by base amount
 		IncDifficulty(-1 * BaseDifficulty);
+        // It is negative because of the way the difficulty is handled
     }
 
+    /// <summary>
+    ///  Increase difficulty by the predefined amount
+    /// </summary>
     static public void IncDifficulty()
     {
 		const float difficultyIncrease = -0.75f;
@@ -79,9 +108,12 @@ public class GameLogic : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    ///  Increases difficulty by specified amount
+    /// </summary>
+    /// <param name="_inc"></param>
 	static public void IncDifficulty(float _inc)
 	{
-
 		GameObject[] backgrounds = GameObject.FindGameObjectsWithTag("Background");
 		GameObject[] foregrounds = GameObject.FindGameObjectsWithTag("Foreground");
 		GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
@@ -100,6 +132,7 @@ public class GameLogic : MonoBehaviour {
 		}
 	}
 
+    // Update high score display with the current high score
     public static void UpdateHighScore(int _score)
     {
         if (highScore < _score)

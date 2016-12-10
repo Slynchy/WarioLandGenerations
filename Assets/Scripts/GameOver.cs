@@ -4,17 +4,19 @@ using System.Collections;
 
 public class GameOver : MonoBehaviour {
 
+    /// <summary>
+    ///  Loads new game after specified time
+    /// </summary>
+    /// <param name="time"></param>
 	IEnumerator LoadNewGame(float time){
 		yield return new WaitForSeconds (time);
 		SceneManager.LoadScene (1);
 	}
-
-	// Use this for initialization
+    
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
