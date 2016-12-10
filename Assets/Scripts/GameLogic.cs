@@ -12,6 +12,8 @@ public class GameLogic : MonoBehaviour {
 
     const string SaveDataName = "High Score";
 
+	private const float BaseDifficulty = 2.5f;
+
     //adapted from http://stackoverflow.com/questions/4808612/how-to-split-a-number-into-individual-digits-in-c 
     public static int[] GetIntArray(int num)
     {
@@ -51,27 +53,52 @@ public class GameLogic : MonoBehaviour {
         ScoreDigits[2] = GameObject.Find("Score_1");
 
         ScoreSprites = Resources.LoadAll<Sprite>("numbers");
+
+		IncDifficulty(-1 * BaseDifficulty);
     }
 
     static public void IncDifficulty()
     {
+		const float difficultyIncrease = -0.75f;
+
         GameObject[] backgrounds = GameObject.FindGameObjectsWithTag("Background");
         GameObject[] foregrounds = GameObject.FindGameObjectsWithTag("Foreground");
         GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
 
         foreach(GameObject bg in backgrounds)
         {
-            bg.GetComponent<Translate>().m_speed_x *= 1.1f;
+			bg.GetComponent<Translate>().m_speed_x += difficultyIncrease;
         }
         foreach (GameObject fg in foregrounds)
         {
-            fg.GetComponent<Translate>().m_speed_x *= 1.1f;
+			fg.GetComponent<Translate>().m_speed_x += difficultyIncrease;
         }
         foreach (GameObject g in grounds)
         {
-            g.GetComponent<Translate>().m_speed_x *= 1.1f;
+			g.GetComponent<Translate>().m_speed_x += difficultyIncrease;
         }
-    }
+	}
+
+	static public void IncDifficulty(float _inc)
+	{
+
+		GameObject[] backgrounds = GameObject.FindGameObjectsWithTag("Background");
+		GameObject[] foregrounds = GameObject.FindGameObjectsWithTag("Foreground");
+		GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
+
+		foreach(GameObject bg in backgrounds)
+		{
+			bg.GetComponent<Translate>().m_speed_x += _inc;
+		}
+		foreach (GameObject fg in foregrounds)
+		{
+			fg.GetComponent<Translate>().m_speed_x += _inc;
+		}
+		foreach (GameObject g in grounds)
+		{
+			g.GetComponent<Translate>().m_speed_x += _inc;
+		}
+	}
 
     public static void UpdateHighScore(int _score)
     {

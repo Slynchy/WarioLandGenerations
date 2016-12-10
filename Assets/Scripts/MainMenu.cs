@@ -11,6 +11,11 @@ public class MainMenu : MonoBehaviour {
 
     public GameObject FadeToWhite_Prefab;
 
+	IEnumerator LoadNewGame(float time){
+		yield return new WaitForSeconds (time);
+		SceneManager.LoadScene (1);
+	}
+
 	// Use this for initialization
 	void Start () {
         timer = 0.0f;
@@ -18,10 +23,15 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-    {
+	{
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene(1);
+		{
+			this.GetComponent<AudioSource> ().Stop ();
+			GameObject.Find ("PushStart").GetComponent<AudioSource> ().Play ();
+			StartCoroutine (LoadNewGame (2.0f));
         }
         timer += Time.deltaTime;
         if ( timer >= 5.0f )

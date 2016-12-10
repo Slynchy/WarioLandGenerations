@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -23,6 +24,15 @@ public class Player : MonoBehaviour {
 
     private GameObject SmokeTrail;
 
+	private AudioClip ScoreUpSound;
+
+	public GameObject ScoreUpPrefab;
+
+	IEnumerator LoadGameOver(float time){
+		yield return new WaitForSeconds (time);
+		SceneManager.LoadScene (2);
+	}
+
 	// Use this for initialization
 	void Start () {
 		RB = this.GetComponent<Rigidbody2D> ();
@@ -36,14 +46,18 @@ public class Player : MonoBehaviour {
 		health = StartingHealth;
 		score = StartingScore;
         SmokeTrail = GameObject.Find("SmokeTrail");
+		ScoreUpSound = this.GetComponent<AudioSource> ().clip;
         GameLogic.Init();
-        GameLogic.UpdateHighScore((int)score);
+		GameLogic.UpdateHighScore((int)score);
+		this.GetComponent<WarioVoiceScript> ().PlaySound ("here_i_go1");
     }
 
 	public void IncreaseScore(){
 		score++;
 		UpdateScoreDisplay ();
-        this.GetComponent<AudioSource>().Play();
+		this.GetComponent<WarioVoiceScript> ().PlaySFX (ScoreUpSound);
+		GameObject temp = GameObject.Instantiate (ScoreUpPrefab);
+		temp.transform.position = new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 2.0f, this.gameObject.transform.position.z);
 	}
 
     public void UpdateScoreDisplay(){
@@ -59,7 +73,12 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space) && isGrounded == true) {
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+
+		if (Input.GetAxis("Jump") > 0 && isGrounded == true) {
 			RB.AddForce (new Vector2(0,JumpPower));
 			isGrounded = false;
             SmokeTrail.SetActive(false);
@@ -90,14 +109,21 @@ public class Player : MonoBehaviour {
 		if (health > 0) {
 			health--;
 			Hearts [health].GetComponent<Image> ().sprite = NoHeart[(int)GameObject.Find("Environment").GetComponent<World>().CurrentEra()];
+			RB.AddForce (new Vector2 (0, 650));
+			isGrounded = false;
+			SmokeTrail.SetActive(false);
 		}
         
-        if(health <= 0)
-        {
-            RB.AddForce(new Vector2(0, 650));
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            GameObject.Find("Environment").GetComponent<World>().StopMoving();
-        }
+		if (health <= 0) {
+			this.GetComponent<WarioVoiceScript> ().PlaySound ("scream1");
+			this.GetComponent<WarioVoiceScript> ().PlaySound ("Wario_hurt");
+			this.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+			GameObject.Find ("Environment").GetComponent<World> ().StopMoving ();
+			StartCoroutine (LoadGameOver (3.0f));
+		} else {
+			this.GetComponent<WarioVoiceScript> ().PlaySound ("ow_boy");
+			this.GetComponent<WarioVoiceScript> ().PlaySound ("Wario_hurt");
+		}
 	}
 
 	public void UpdateHeartSprites(World.Era _era){
@@ -110,9 +136,6 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
-
-	//void FixedUpdate(){
-	//}
 
 	void OnCollisionEnter2D(Collision2D coll){
 		if (coll.gameObject.CompareTag ("Ground")) {

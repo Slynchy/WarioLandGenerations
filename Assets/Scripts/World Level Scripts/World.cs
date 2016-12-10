@@ -68,6 +68,7 @@ public class World : MonoBehaviour {
 	public void IncEra(){
 		if (++current_era != Era.NUM_OF_ERAS) {
 			ChangeEra (current_era);
+			GameLogic.IncDifficulty();
 		} else {
 			ChangeEra (Era.GameBoyAdv);
             current_era = Era.GameBoyAdv;
@@ -110,7 +111,10 @@ public class World : MonoBehaviour {
         {
             var time = Camera.main.GetComponent<AudioSource>().time;
             Camera.main.GetComponent<AudioSource>().clip = Music[(int)_era];
-            Camera.main.GetComponent<AudioSource>().time = time;
+			if(Music[(int)_era].length > time)
+            	Camera.main.GetComponent<AudioSource>().time = time;
+			else
+				Camera.main.GetComponent<AudioSource>().time = 0;
             Camera.main.GetComponent<AudioSource>().Play();
         }
 	}
