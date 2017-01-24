@@ -20,12 +20,25 @@ public class GameOver : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
-		}
-	    if(Input.GetKeyDown(KeyCode.Space))
-		{
-			this.GetComponent<AudioSource> ().Stop ();
-			GameObject.Find ("PushSpace").GetComponent<AudioSource> ().Play ();
-			StartCoroutine (LoadNewGame (2.0f));
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.touchCount > 0)
+            {
+                this.GetComponent<AudioSource>().Stop();
+                GameObject.Find("PushSpace").GetComponent<AudioSource>().Play();
+                StartCoroutine(LoadNewGame(2.0f));
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                this.GetComponent<AudioSource>().Stop();
+                GameObject.Find("PushSpace").GetComponent<AudioSource>().Play();
+                StartCoroutine(LoadNewGame(2.0f));
+            }
         }
 	}
 }

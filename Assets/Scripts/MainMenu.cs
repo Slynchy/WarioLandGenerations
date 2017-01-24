@@ -37,12 +37,24 @@ public class MainMenu : MonoBehaviour {
 			Application.Quit ();
 		}
 
-        // Play sound + start game if space is pressed
-        if (Input.GetKeyDown(KeyCode.Space))
-		{
-			this.GetComponent<AudioSource> ().Stop ();
-			StartButton.GetComponent<AudioSource> ().Play ();
-			StartCoroutine (LoadNewGame (2.0f));
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            // Play sound + start game if space is pressed
+            if (Input.touchCount > 0)
+            {
+                this.GetComponent<AudioSource>().Stop();
+                StartButton.GetComponent<AudioSource>().Play();
+                StartCoroutine(LoadNewGame(2.0f));
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                this.GetComponent<AudioSource>().Stop();
+                StartButton.GetComponent<AudioSource>().Play();
+                StartCoroutine(LoadNewGame(2.0f));
+            }
         }
 
         // Count until threshold, then change era and reset counter

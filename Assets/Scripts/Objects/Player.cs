@@ -110,10 +110,23 @@ public class Player : MonoBehaviour {
 			Application.Quit ();
 		}
 
-		if (Input.GetAxis("Jump") > 0 && isGrounded == true) {
-			RB.AddForce (new Vector2(0,JumpPower));
-			isGrounded = false;
-            SmokeTrail.SetActive(false);
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.touchCount > 0 && isGrounded == true)
+            {
+                RB.AddForce(new Vector2(0, JumpPower));
+                isGrounded = false;
+                SmokeTrail.SetActive(false);
+            }
+        }
+        else
+        {
+            if (Input.GetAxis("Jump") > 0 && isGrounded == true)
+            {
+                RB.AddForce(new Vector2(0, JumpPower));
+                isGrounded = false;
+                SmokeTrail.SetActive(false);
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.K))
